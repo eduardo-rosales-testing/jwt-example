@@ -1,1 +1,5 @@
 node_modules
+/public/bootstrap-3.0.2
+/public/js/jquery-2.0.3.min.js
+/public/js/jquery-2.0.4.min.map
+.DS_Store
