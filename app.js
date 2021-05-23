@@ -12,6 +12,22 @@ app.all('*', (req, res) => {
   res.render('index', {msg: 'Welcome to Practical Node.js!'});
 });
 
-http.createServer(app).listen(app.get('port'), () => {
-  console.log(`Express.js server is listening on port ${app.get('port')}`);
-})
+const server = http.createServer(app);
+const boot = () => {
+  server.listen(app.get('port'), () => {
+    console.info(`Express.js server is listening on port ${app.get('port')}`);
+  });
+}
+
+const shutdown = () => {
+  server.close();  
+}
+
+if (require.main === module) {
+  boot();
+} else {
+  console.info('Running app as a module');
+  exports.boot = boot;
+  exports.shutdown = shutdown;
+  exports.port = app.get('port');
+}
