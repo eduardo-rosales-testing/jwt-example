@@ -1,8 +1,23 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
+const mongoskin = require('mongoskin');
+const dbUrl = process.env.MONGOHQ_URL || 'mongodb://@localhost:27017/blog';
 
+const db = mongoskin.db(dbUrl);
+const collections = {
+  articles: db.collection('articles'),
+  users: db.collection('users')
+};
 let app = express();
+app.locals.appTitle = 'blog-express';
+// expose collections to all other middlware and routes
+app.use((req, res, next) => {
+  if (!collections.articles || !collections.users)
+    return next(new Error('No collections.'));
+  req.collections = collections;
+  return next();
+});
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
