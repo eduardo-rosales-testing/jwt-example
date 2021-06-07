@@ -46,21 +46,10 @@ app.get('/', routes.index);
 app.get('/login', routes.user.login);
 app.post('/login', routes.user.authenticate);
 
-// app.get('/logout', (req, res, next) => {
-//   res.send("[GET]: /logout page");
-// });
-
-app.get('/admin', (req, res, next) => {
-  res.render('admin', {articles: []});
-});
-
-// app.get('/post', (req, res, next) => {
-//   res.send("[GET]: /post page")
-// });
-
-// app.post('/post', (req, res, next) => {
-//   res.send("[POST]: /post page");
-// });
+app.get('/logout', routes.user.logout);
+app.get('/admin', routes.article.admin);
+app.get('/post', routes.article.post);
+app.post('/post', routes.article.postArticle);
 
 // app.get('/articles/:slug', (req, res, next) => {
 //   res.send("[GET]: /articles/:slug page")

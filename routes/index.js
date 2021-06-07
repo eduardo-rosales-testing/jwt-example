@@ -1,3 +1,4 @@
+exports.article = require('./article');
 exports.user = require('./user');
 
 exports.index = (req, res, next) => {
